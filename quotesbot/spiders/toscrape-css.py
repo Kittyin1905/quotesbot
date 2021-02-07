@@ -15,7 +15,7 @@ class ToScrapeCSSSpider(scrapy.Spider):
             yield {
                 'text': quote.css("h3 a::text").extract_first(),
     #            'author': quote.css("small.author::text").extract_first(),
-                'tags': quote.css("div.fl_w100 > strong::text").extract()
+                'tags': quote.css("div.fl_w100 > span::text").extract()
             }
 
  #       next_page_url = response.css("li.next > a::attr(href)").extract_first()
