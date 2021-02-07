@@ -10,11 +10,11 @@ class ToScrapeCSSSpider(scrapy.Spider):
     ]
 
     def parse(self, response):
-        for quote in response.css("div.quote"):
+        for quote in response.css("div.rs_cnt"):
             yield {
-                'text': quote.css("span.text::text").extract_first(),
-                'author': quote.css("small.author::text").extract_first(),
-                'tags': quote.css("div.tags > a.tag::text").extract()
+                'text': quote.css("h3.a::text").extract_first(),
+  #              'author': quote.css("small.author::text").extract_first(),
+  #              'tags': quote.css("div.tags > a.tag::text").extract()
             }
 
  #       next_page_url = response.css("li.next > a::attr(href)").extract_first()
