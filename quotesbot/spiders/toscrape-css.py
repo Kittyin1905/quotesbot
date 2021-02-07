@@ -13,7 +13,7 @@ class ToScrapeCSSSpider(scrapy.Spider):
             yield {
                 'text': quote.css("span.text::text").extract_first(),
                 'author': quote.css("small.author::text").extract_first(),
-                'tags': quote.css("div.tags > a.tag::text").extract()
+ #               'tags': quote.css("div.tags > a.tag::text").extract()
             }
 
  #       next_page_url = response.css("li.next > a::attr(href)").extract_first()
