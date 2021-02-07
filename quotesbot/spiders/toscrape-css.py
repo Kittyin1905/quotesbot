@@ -6,13 +6,13 @@ class ToScrapeCSSSpider(scrapy.Spider):
     name = "toscrape-css"
     start_urls = [
        # 'http://quotes.toscrape.com/tag/love/',
-        'https://www.flowerpower.com.au/products/plants/',
+        'https://www.flowersforeveryone.com.au/',
     ]
 
     def parse(self, response):
-        for quote in response.css("div.product-item"):
+        for quote in response.css("div.card"):
             yield {
-                'text': quote.css("strong.product-item-name::text").extract_first(),
+                'text': quote.css("span.product-name::text").extract_first(),
     #            'author': quote.css("small.author::text").extract_first(),
     #            'tags': quote.css("div.tags > a.tag::text").extract()
             }
