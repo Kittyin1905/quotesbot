@@ -6,7 +6,7 @@ class ToScrapeCSSSpider(scrapy.Spider):
     name = "toscrape-css"
     start_urls = [
        # 'http://quotes.toscrape.com/tag/love/',
-        'https://www.flowerpower.com.au/products/plants',
+        'https://www.flowerpower.com.au/products/plants/',
     ]
 
     def parse(self, response):
