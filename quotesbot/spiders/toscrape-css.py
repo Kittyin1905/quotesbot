@@ -4,20 +4,18 @@ import scrapy
 
 class ToScrapeCSSSpider(scrapy.Spider):
     name = "toscrape-css"
-    start_urls = [        
-       # 'http://quotes.toscrape.com/',
-       # 'https://www.news.com.au/world/',
-        'http://quotes.toscrape.com/tag/love/'
+    start_urls = [
+        'http://quotes.toscrape.com/tag/love/',
     ]
 
     def parse(self, response):
-        for quote in response.css("quote"):
+        for quote in response.css("div.quote"):
             yield {
-   #             'text': quote.css("a::text").extract_first(),
-                'author': quote.css("small.author::text").extract_first()
-  #              'tags': quote.css("div.tags > a.tag::text").extract()
+                'text': quote.css("span.text::text").extract_first(),
+                'author': quote.css("small.author::text").extract_first(),
+                'tags': quote.css("div.tags > a.tag::text").extract()
             }
+
  #       next_page_url = response.css("li.next > a::attr(href)").extract_first()
  #       if next_page_url is not None:
  #           yield scrapy.Request(response.urljoin(next_page_url))
-
