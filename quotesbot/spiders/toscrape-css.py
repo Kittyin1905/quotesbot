@@ -13,7 +13,7 @@ class ToScrapeCSSSpider(scrapy.Spider):
     def parse(self, response):
         for quote in response.css("div.rs_cnt"):
             yield {
-                'text': quote.css("h3.univ-tit a::text").extract_first(),
+                'text': quote.css("h3 a::text").extract_first(),
     #            'author': quote.css("small.author::text").extract_first(),
     #            'tags': quote.css("div.tags > a.tag::text").extract()
             }
