@@ -6,13 +6,13 @@ class ToScrapeCSSSpider(scrapy.Spider):
     name = "toscrape-css"
     start_urls = [
       #  'http://quotes.toscrape.com/',
-        'https://search.studyinaustralia.gov.au/course/search-results.html?qualificationid=9',
+        'https://www.news.com.au/world/',
     ]
 
     def parse(self, response):
-        for quote in response.css("div.rs_cnt"):
+        for quote in response.css("h4.heading"):
             yield {
-                'text': quote.css("h3.a::text").extract_first(),
+                'text': quote.css("a::text").extract_first(),
   #              'author': quote.css("small.author::text").extract_first(),
   #              'tags': quote.css("div.tags > a.tag::text").extract()
             }
