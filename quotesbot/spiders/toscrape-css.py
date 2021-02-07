@@ -5,7 +5,8 @@ import scrapy
 class ToScrapeCSSSpider(scrapy.Spider):
     name = "toscrape-css"
     start_urls = [
-        'http://quotes.toscrape.com/',
+      #  'http://quotes.toscrape.com/',
+        'https://search.studyinaustralia.gov.au/course/search-results.html?qualificationid=9',
     ]
 
     def parse(self, response):
@@ -16,7 +17,7 @@ class ToScrapeCSSSpider(scrapy.Spider):
                 'tags': quote.css("div.tags > a.tag::text").extract()
             }
 
-        next_page_url = response.css("li.next > a::attr(href)").extract_first()
-        if next_page_url is not None:
-            yield scrapy.Request(response.urljoin(next_page_url))
+ #       next_page_url = response.css("li.next > a::attr(href)").extract_first()
+ #       if next_page_url is not None:
+ #           yield scrapy.Request(response.urljoin(next_page_url))
 
