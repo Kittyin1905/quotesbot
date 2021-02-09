@@ -20,7 +20,7 @@ class ToScrapeCSSSpider(scrapy.Spider):
     def parse(self, response):
         
         self.logger.info('A mmparse response from %s just arrived!', response.url),
-      
+        
  #       for quote in response.css("li.single-recipe-page-step"):
    #         step[name]=quote.css("div.single-recipe-page-step__title::text").extract_first()
    #         yield {      
@@ -35,7 +35,7 @@ class ToScrapeCSSSpider(scrapy.Spider):
        #         'author': quote.css("div.post-preview-box-title::text").extract_first(),
      #           'tags': quote.css("div.fl_w100 > span::text").extract()
      #       }
-         yield{
+        yield{
              'step':response.css("li.single-recipe-page-step::text").extract(),
              'ingredient':response.css("li.single-recipe-page__ingredient::text").extract()
          }
