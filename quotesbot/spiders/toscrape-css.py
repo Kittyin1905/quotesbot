@@ -22,6 +22,7 @@ class ToScrapeCSSSpider(scrapy.Spider):
    #     text= response.css("ul.single-recipe-page-ingredients__list")[0]
         content=response.css("div.content-container")[0]
         yield{
+             'title': content.css("h1.content__title::text").extract(),
              'steps': content.css("div.single-recipe-page-step__title::text").extract(),
              'ingredients':content.css("li.single-recipe-page__ingredient::text").extract()
          }
