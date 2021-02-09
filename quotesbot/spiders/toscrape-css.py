@@ -9,7 +9,7 @@ class ToScrapeCSSSpider(scrapy.Spider):
        # 'https://www.flowersforeveryone.com.au/',
        # 'https://search.studyinaustralia.gov.au/course/search-results.html?qualificationid=11',
        # 'https://soyummy.com/breakfast/',
-        'https://soyummy.com/recipe/triple-chocolate-puffs/',
+        'https://soyummy.com/recipe/glazed-lemon-poppy-seed-pastries/',
     ]
 
     def parse(self, response):
