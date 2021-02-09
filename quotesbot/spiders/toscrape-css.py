@@ -4,9 +4,7 @@ import logging
 
 class Step(scrapy.Item):
     name = scrapy.Field()
- 
-   
-    
+     
 class ToScrapeCSSSpider(scrapy.Spider):
     name = "toscrape-css"
     start_urls = [
@@ -14,10 +12,8 @@ class ToScrapeCSSSpider(scrapy.Spider):
        # 'https://www.flowersforeveryone.com.au/',
        # 'https://search.studyinaustralia.gov.au/course/search-results.html?qualificationid=11',
        # 'https://soyummy.com/breakfast/',
-        'https://soyummy.com/recipe/glazed-lemon-poppy-seed-pastries/'
+        'https://soyummy.com/recipe/glazed-lemon-poppy-seed-pastries/',
     ]
-    
-
     def parse(self, response):
    #     quote = response.css("ul.single-recipe-page-steps-container")[0]
         text= response.css("ul.single-recipe-page-ingredients__list")[0]
