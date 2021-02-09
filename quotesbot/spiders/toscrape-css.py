@@ -25,10 +25,11 @@ class ToScrapeCSSSpider(scrapy.Spider):
     start_urls = [
         'https://soyummy.com/recipe/glazed-lemon-poppy-seed-pastries/',
     ]
-    self.logger.info('A parse1 response from %s just arrived!', response.url)
+  
         
     def parse(self, response):
         print("in parse")
+        self.logger.info('A parse1 response from %s just arrived!', response.url)
    #     quote = response.css("ul.single-recipe-page-steps-container")[0]
         text= response.css("ul.single-recipe-page-ingredients__list")[0]
        # content= response.css("div.content-container")[0]
