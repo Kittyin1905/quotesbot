@@ -21,7 +21,7 @@ class ToScrapeCSSSpider(scrapy.Spider):
         quote = response.css("ul.single-recipe-page-steps-container")[0]
         text= response.css("ul.single-recipe-page-ingredients__list")[0]
         yield{
-             'steps': quote.css("li.single-recipe-page-step__title::text").extract(),
+             'steps': quote.css("div.single-recipe-page-step__title::text").extract(),
              'ingredients':text.css("li.single-recipe-page__ingredient::text").extract()
          }
         
