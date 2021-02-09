@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 import scrapy
-
+import logging
 
 class ToScrapeCSSSpider(scrapy.Spider):
     name = "toscrape-css"
@@ -13,10 +13,12 @@ class ToScrapeCSSSpider(scrapy.Spider):
     ]
 
     def parse(self, response):
-        for quote in response.css("div.single-recipe-page-info-item"):
+      
+        self.logger.info('A mmparse response from %s just arrived!', response.url),
+        for quote in response.css("li.single-recipe-page-step"):
             yield {
          #       'text': quote.css("div.single-recipe-page-info-item_content > div::text").extract(),
-                'author': quote.css("div.single-recipe-page-info-item_text::text").extract_first(),
+                'author': quote.css("div.single-recipe-page-step_title::text").extract_first(),
        #         'text': quote.css("a::attr(href)").extract_first(),
        #         'author': quote.css("div.post-preview-box-title::text").extract_first(),
      #           'tags': quote.css("div.fl_w100 > span::text").extract()
