@@ -19,12 +19,12 @@ class ToScrapeCSSSpider(scrapy.Spider):
 
     def parse(self, response):
    #     quote = response.css("ul.single-recipe-page-steps-container")[0]
-   #     text= response.css("ul.single-recipe-page-ingredients__list")[0]
-        content=response.css("div.content-container")[0]
+        text= response.css("ul.single-recipe-page-ingredients__list")[0]
+        content= response.css("div.content-container")[0]
         yield{
              'title': content.css("h1.content__title::text").extract(),
              'steps': content.css("div.single-recipe-page-step__title::text").extract(),
-             'ingredients':content.css("li.single-recipe-page__ingredient::text").extract()
+             'ingredients':text.css("li.single-recipe-page__ingredient::text").extract()
          }
         
         self.logger.info('A mmparse response from %s just arrived!', response.url)
