@@ -14,14 +14,17 @@ class ToScrapeCSSSpider(scrapy.Spider):
        # 'https://www.flowersforeveryone.com.au/',
        # 'https://search.studyinaustralia.gov.au/course/search-results.html?qualificationid=11',
        # 'https://soyummy.com/breakfast/',
-        'https://soyummy.com/recipe/glazed-lemon-poppy-seed-pastries/',
+        'https://soyummy.com/recipe/glazed-lemon-poppy-seed-pastries/'
     ]
+    
 
     def parse(self, response):
    #     quote = response.css("ul.single-recipe-page-steps-container")[0]
         text= response.css("ul.single-recipe-page-ingredients__list")[0]
        # content= response.css("div.content-container")[0]
         yield{
+            'ingredients':text.css("li.single-recipe-page__ingredient::text").extract()
+            
           #   'title': content.css("h1.content__title::text").extract(),
          #    'steps': content.css("div.single-recipe-page-step__title::text").extract(),
              'ingredients':text.css("li.single-recipe-page__ingredient::text").extract()
