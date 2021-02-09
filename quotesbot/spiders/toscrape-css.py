@@ -24,14 +24,10 @@ class ToScrapeCSSSpider(scrapy.Spider):
       
         self.logger.info('A mmparse response from %s just arrived!', response.url),
         for quote in response.css("li.single-recipe-page-step"):
-            yield {
-         #       'text': quote.css("div.single-recipe-page-info-item_content > div::text").extract(),
+            yield {      
                 'author': quote.css("div.single-recipe-page-step__title::text").extract_first(),
-       #         'text': quote.css("a::attr(href)").extract_first(),
-       #         'author': quote.css("div.post-preview-box-title::text").extract_first(),
-     #           'tags': quote.css("div.fl_w100 > span::text").extract()
             }
-         for quote in response.css("li.single-recipe-page__ingredient"):
+        for quote in response.css("li.single-recipe-page__ingredient"):
             yield {
          #       'text': quote.css("div.single-recipe-page-info-item_content > div::text").extract(),
                 'ingredient': quote.css("li.single-recipe-page__ingredient::text").extract_first(),
