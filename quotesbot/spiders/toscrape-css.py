@@ -18,8 +18,14 @@ class ToScrapeCSSSpider(scrapy.Spider):
     ]
 
     def parse(self, response):
+        quote = response.css("ul.single-recipe-page-steps-container")[0]
+        text= response.css("ul.single-recipe-page-ingredients__list")[0]
+        yield{
+             'step': quote.css("li.single-recipe-page-step::text").extract(),
+             'ingredient':text.css("li.single-recipe-page__ingredient::text").extract()
+         }
         
-        self.logger.info('A mmparse response from %s just arrived!', response.url),
+        self.logger.info('A mmparse response from %s just arrived!', response.url)
         
  #       for quote in response.css("li.single-recipe-page-step"):
    #         step[name]=quote.css("div.single-recipe-page-step__title::text").extract_first()
@@ -35,12 +41,7 @@ class ToScrapeCSSSpider(scrapy.Spider):
        #         'author': quote.css("div.post-preview-box-title::text").extract_first(),
      #           'tags': quote.css("div.fl_w100 > span::text").extract()
      #       }
-        quote = response.css("ul.single-recipe-page-steps-container")[0]
-        text= response.css("ul.single-recipe-page-ingredients__list")[0]
-        yield{
-             'step': quote.css("li.single-recipe-page-step::text").extract(),
-             'ingredient':text.css("li.single-recipe-page__ingredient::text").extract()
-         }
+       
  #       next_page_url = response.css("li.next > a::attr(href)").extract_first()
  #       if next_page_url is not None:
  #           yield scrapy.Request(response.urljoin(next_page_url))
