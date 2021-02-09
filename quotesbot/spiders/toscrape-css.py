@@ -1,10 +1,7 @@
 # -*- coding: utf-8 -*-
 import scrapy
 import logging
-class Ingredient(scrapy.Item):
-    name = scrapy.Field()
-    price = scrapy.Field()
-    stock = scrapy.Field()
+
 class Step(scrapy.Item):
     name = scrapy.Field()
  
@@ -21,11 +18,9 @@ class ToScrapeCSSSpider(scrapy.Spider):
     ]
 
     def parse(self, response):
-        step=Step(),
-        ingredient=Step(),
+        
         self.logger.info('A mmparse response from %s just arrived!', response.url),
-        step[name]=response.css("li.single-recipe-page-step::text").extract(),
-        ingredient[name]=response.css("li.single-recipe-page__ingredient::text").extract(),
+      
  #       for quote in response.css("li.single-recipe-page-step"):
    #         step[name]=quote.css("div.single-recipe-page-step__title::text").extract_first()
    #         yield {      
@@ -40,8 +35,9 @@ class ToScrapeCSSSpider(scrapy.Spider):
        #         'author': quote.css("div.post-preview-box-title::text").extract_first(),
      #           'tags': quote.css("div.fl_w100 > span::text").extract()
      #       }
-         yield{step,
-               ingredient
+         yield{
+             'step':response.css("li.single-recipe-page-step::text").extract(),
+             'ingredient':response.css("li.single-recipe-page__ingredient::text").extract()
          }
  #       next_page_url = response.css("li.next > a::attr(href)").extract_first()
  #       if next_page_url is not None:
