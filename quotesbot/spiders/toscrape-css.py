@@ -35,9 +35,11 @@ class ToScrapeCSSSpider(scrapy.Spider):
        #         'author': quote.css("div.post-preview-box-title::text").extract_first(),
      #           'tags': quote.css("div.fl_w100 > span::text").extract()
      #       }
+        quote = response.css("ul.single-recipe-page-steps-container")[0]
+        text= response.css("ul.single-recipe-page-ingredients__list")[0]
         yield{
-             'step':response.css("li.single-recipe-page-step::text").extract(),
-             'ingredient':response.css("li.single-recipe-page__ingredient::text").extract()
+             'step': quote.css("li.single-recipe-page-step::text").extract(),
+             'ingredient':text.css("li.single-recipe-page__ingredient::text").extract()
          }
  #       next_page_url = response.css("li.next > a::attr(href)").extract_first()
  #       if next_page_url is not None:
