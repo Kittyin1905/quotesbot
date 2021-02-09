@@ -8,22 +8,20 @@ class Step(scrapy.Item):
 class ToScrapeCSSSpider(scrapy.Spider):
     name = "toscrape-css"
     start_urls = [
-       # 'http://quotes.toscrape.com/tag/love/',
-       # 'https://www.flowersforeveryone.com.au/',
-       # 'https://search.studyinaustralia.gov.au/course/search-results.html?qualificationid=11',
-       # 'https://soyummy.com/breakfast/',
         'https://soyummy.com/recipe/glazed-lemon-poppy-seed-pastries/',
     ]
+    print("out parse")
     def parse(self, response):
+        print("in parse")
    #     quote = response.css("ul.single-recipe-page-steps-container")[0]
         text= response.css("ul.single-recipe-page-ingredients__list")[0]
        # content= response.css("div.content-container")[0]
-        yield{
+        yield {
+            'ingredients': text.css("li.single-recipe-page__ingredient::text").extract()
+            
           #   'title': content.css("h1.content__title::text").extract(),
          #    'steps': content.css("div.single-recipe-page-step__title::text").extract(),
-             'ingredients': text.css("li.single-recipe-page__ingredient::text").extract()
          }
-        
         self.logger.info('A mmparse response from %s just arrived!', response.url)
         
  #       for quote in response.css("li.single-recipe-page-step"):
