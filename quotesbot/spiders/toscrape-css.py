@@ -16,14 +16,14 @@ class ToScrapeCSSSpider(scrapy.Spider):
         temp= response.css("div.single-recipe-page-info-item")
 
         yield {
-            'ingredients': text.css("li.single-recipe-page__ingredient::text").extract(),
-            'description': content.css("div.description-container::text").extract(),
-            'subtitle': content.css("div.content__category::text").extract(),
             'title': content.css("h1.content__title::text").extract(),
+            'subtitle': content.css("div.content__category::text").extract(),
+            'description': content.css("div.description-container::text").extract(),
+            'serves': temp[3].css("div.single-recipe-page-info-item__text::text").extract(),
             'prep_time': temp[0].css("div.single-recipe-page-info-item__text::text").extract(),
             'cooking_time': temp[1].css("div.single-recipe-page-info-item__text::text").extract(),
-            'complexity': temp[2].css("div.single-recipe-page-info-item__text::text").extract(),
-            'serves': temp[3].css("div.single-recipe-page-info-item__text::text").extract()
+            'complexity': temp[2].css("div.single-recipe-page-info-item__text::text").extract_first(),
+            'ingredients': text.css("li.single-recipe-page__ingredient::text").extract()
         }
  #           'description': content.css("div.description-container::text").extract(),
 #            'subtitle': content.css("div.content__category::text").extract(),
