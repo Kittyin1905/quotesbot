@@ -20,7 +20,10 @@ class ToScrapeCSSSpider(scrapy.Spider):
             'description': content.css("div.description-container::text").extract(),
             'subtitle': content.css("div.content__category::text").extract(),
             'title': content.css("h1.content__title::text").extract(),
-            'complexity': temp[2].css("div.single-recipe-page-info-item__text::text").extract()
+            'prep_time': temp[0].css("div.single-recipe-page-info-item__text::text").extract(),
+            'cooking_time': temp[1].css("div.single-recipe-page-info-item__text::text").extract(),
+            'complexity': temp[2].css("div.single-recipe-page-info-item__text::text").extract(),
+            'serves': temp[3].css("div.single-recipe-page-info-item__text::text").extract()
         }
  #           'description': content.css("div.description-container::text").extract(),
 #            'subtitle': content.css("div.content__category::text").extract(),
