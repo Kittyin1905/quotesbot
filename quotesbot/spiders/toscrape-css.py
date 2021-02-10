@@ -19,8 +19,8 @@ class ToScrapeCSSSpider(scrapy.Spider):
             'ingredients': text.css("li.single-recipe-page__ingredient::text").extract(),
             'description': content.css("div.description-container::text").extract(),
             'subtitle': content.css("div.content__category::text").extract(),
-            'title': content.css("h1.content__title::text").extract()
-            'complexity': qoute.css("div.single-recipe-page-info-item__text::text").extract(),
+            'title': content.css("h1.content__title::text").extract(),
+            'complexity': qoute.css("div.single-recipe-page-info-item__text::text").extract()
         }
  #           'description': content.css("div.description-container::text").extract(),
 #            'subtitle': content.css("div.content__category::text").extract(),
