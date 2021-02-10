@@ -12,15 +12,17 @@ class ToScrapeCSSSpider(scrapy.Spider):
     ]
 
     def parse(self, response):
+    
         content= response.css("div.content-container")[0]
         text= response.css("ul.single-recipe-page-ingredients__list")[0]
         yield {
-            'complexity': content.css("div.single-recipe-page-info-item__text::text").extract()[2],
-            'cooking_time': content.css("div.single-recipe-page-info-item__text::text").extract()[1],
-            'prep_time': content.css("div.single-recipe-page-info-item__text::text").extract()[0],
-            'serves': content.css("div.single-recipe-page-info-item__text::text").extract()[3],
-            'description': content.css("div.description-container::text").extract(),
-            'subtitle': content.css("div.content__category::text").extract(),
+        
+#             'complexity': content.css("div.single-recipe-page-info-item__text::text").extract()[2],
+#             'cooking_time': content.css("div.single-recipe-page-info-item__text::text").extract()[1],
+#             'prep_time': content.css("div.single-recipe-page-info-item__text::text").extract()[0],
+#             'serves': content.css("div.single-recipe-page-info-item__text::text").extract()[3],
+#             'description': content.css("div.description-container::text").extract(),
+#             'subtitle': content.css("div.content__category::text").extract(),
             'title': content.css("h1.content__title::text").extract(),
             'ingredients': text.css("li.single-recipe-page__ingredient::text").extract()
 #             for element in content.css("li.single-recipe-page-step"):
