@@ -17,12 +17,14 @@ class ToScrapeCSSSpider(scrapy.Spider):
         yield {
             'title': content.css("h1.content__title::text").extract(),
             'ingredients': text.css("li.single-recipe-page__ingredient::text").extract(),
-            'complexity': comp.css("div.single-recipe-page-info-item__text::text").extract(),
+            'description': content.css("div.description-container::text").extract(),
+            'subtitle': content.css("div.content__category::text").extract(),
+#            'complexity': comp.css("div.single-recipe-page-info-item__text::text").extract(),
 #            'cooking_time': content.css("div.single-recipe-page-info-item__text::text").extract()[1],
 #             'prep_time': content.css("div.single-recipe-page-info-item__text::text").extract()[0],
 #             'serves': content.css("div.single-recipe-page-info-item__text::text").extract()[3],
-#             'description': content.css("div.description-container::text").extract(),
-#             'subtitle': content.css("div.content__category::text").extract(),
+             'description': content.css("div.description-container::text").extract(),
+             'subtitle': content.css("div.content__category::text").extract(),
             'title': content.css("h1.content__title::text").extract(),
             'ingredients': text.css("li.single-recipe-page__ingredient::text").extract()
         
