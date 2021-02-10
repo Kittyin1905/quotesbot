@@ -15,9 +15,10 @@ class ToScrapeCSSSpider(scrapy.Spider):
         text= response.css("ul.single-recipe-page-ingredients__list")[0]
 
         yield {
-            'title': content.css("h1.content__title::text").extract(),
             'ingredients': text.css("li.single-recipe-page__ingredient::text").extract(),
-            'description': content.css("div.description-container::text").extract()
+            'description': content.css("div.description-container::text").extract(),
+            'subtitle': content.css("div.content__category::text").extract(),
+            'title': content.css("h1.content__title::text").extract()
         }
  #           'description': content.css("div.description-container::text").extract(),
 #            'subtitle': content.css("div.content__category::text").extract(),
