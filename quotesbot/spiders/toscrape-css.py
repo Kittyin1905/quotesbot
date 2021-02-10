@@ -16,36 +16,17 @@ class ToScrapeCSSSpider(scrapy.Spider):
         temp= response.css("div.single-recipe-page-info-item")
 
         yield {
-            'title': content.css("h1.content__title::text").extract(),
-            'subtitle': content.css("div.content__category::text").extract(),
-            'description': content.css("div.description-container::text").extract(),
-            'serves': temp[3].css("div.single-recipe-page-info-item__text::text").extract(),
-            'prep_time': temp[0].css("div.single-recipe-page-info-item__text::text").extract(),
-            'cooking_time': temp[1].css("div.single-recipe-page-info-item__text::text").extract(),
+            'title': content.css("h1.content__title::text").extract_first(),
+            'subtitle': content.css("div.content__category::text").extract_first(),
+            'description': content.css("div.description-container::text").extract_first(),
+            'serves': temp[3].css("div.single-recipe-page-info-item__text::text").extract_first(),
+            'prep_time': temp[0].css("div.single-recipe-page-info-item__text::text").extract_first(),
+            'cooking_time': temp[1].css("div.single-recipe-page-info-item__text::text").extract_first(),
             'complexity': temp[2].css("div.single-recipe-page-info-item__text::text").extract_first(),
+            'steps': dict((content.css("div.single-recipe-page-step__title::text").extract()), **(content.css("div.single-recipe-page-step__text::text").extract()))
             'ingredients': text.css("li.single-recipe-page__ingredient::text").extract()
         }
- #           'description': content.css("div.description-container::text").extract(),
-#            'subtitle': content.css("div.content__category::text").extract(),
-#            'complexity': comp.css("div.single-recipe-page-info-item__text::text").extract(),
-#            'cooking_time': content.css("div.single-recipe-page-info-item__text::text").extract()[1],
-#             'prep_time': content.css("div.single-recipe-page-info-item__text::text").extract()[0],
-#             'serves': content.css("div.single-recipe-page-info-item__text::text").extract()[3],
-             
-#             'title': content.css("h1.content__title::text").extract(),
-#             'ingredients': text.css("li.single-recipe-page__ingredient::text").extract()
-        
-        
-            
-        
-#             'complexity': content.css("div.single-recipe-page-info-item__text::text").extract()[2],
-#             'cooking_time': content.css("div.single-recipe-page-info-item__text::text").extract()[1],
-#             'prep_time': content.css("div.single-recipe-page-info-item__text::text").extract()[0],
-#             'serves': content.css("div.single-recipe-page-info-item__text::text").extract()[3],
-#             'description': content.css("div.description-container::text").extract(),
-#             'subtitle': content.css("div.content__category::text").extract(),
-#             'title': content.css("h1.content__title::text").extract(),
-#             'ingredients': text.css("li.single-recipe-page__ingredient::text").extract()
+
 #             for element in content.css("li.single-recipe-page-step"):
 #                 'step[title]': content.css("div.single-recipe-page-step__title::text").extract()
 #                 'step[text]': content.css("div.single-recipe-page-step__text span::text").extract()
