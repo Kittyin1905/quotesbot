@@ -13,14 +13,14 @@ class ToScrapeCSSSpider(scrapy.Spider):
     def parse(self, response):
         content= response.css("div.content-container")[0]
         text= response.css("ul.single-recipe-page-ingredients__list")[0]
-        quote= response.css("div.single-recipe-page-info-item")[0]
+        temp= response.css("div.single-recipe-page-info-item")[0]
 
         yield {
             'ingredients': text.css("li.single-recipe-page__ingredient::text").extract(),
             'description': content.css("div.description-container::text").extract(),
             'subtitle': content.css("div.content__category::text").extract(),
             'title': content.css("h1.content__title::text").extract(),
-            'complexity': qoute.css("div.single-recipe-page-info-item__text::text").extract()
+            'complexity': temp.css("div.single-recipe-page-info-item__text::text").extract()
         }
  #           'description': content.css("div.description-container::text").extract(),
 #            'subtitle': content.css("div.content__category::text").extract(),
