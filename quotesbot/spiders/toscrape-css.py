@@ -23,8 +23,9 @@ class ToScrapeCSSSpider(scrapy.Spider):
             'prep_time': temp[0].css("div.single-recipe-page-info-item__text::text").extract_first(),
             'cooking_time': temp[1].css("div.single-recipe-page-info-item__text::text").extract_first(),
             'complexity': temp[2].css("div.single-recipe-page-info-item__text::text").extract_first(),
-            'steps': dict((content.css("div.single-recipe-page-step__title::text").extract()), **(content.css("div.single-recipe-page-step__text::text").extract())),
-            'ingredients': text.css("li.single-recipe-page__ingredient::text").extract()
+            'ingredients': text.css("li.single-recipe-page__ingredient::text").extract(),
+            'steps_title': content.css("div.single-recipe-page-step__title::text").extract(),
+            'steps_text': content.css("div.single-recipe-page-step__text::text").extract()
         }
 
 #             for element in content.css("li.single-recipe-page-step"):
