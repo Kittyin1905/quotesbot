@@ -25,8 +25,8 @@ class ToScrapeCSSSpider(scrapy.Spider):
 #             'serves': content.css("div.single-recipe-page-info-item__text::text").extract()[3],
 #             'description': content.css("div.description-container::text").extract(),
 #             'subtitle': content.css("div.content__category::text").extract(),
-             'title': content.css("h1.content__title::text").extract(),
-             'ingredients': text.css("li.single-recipe-page__ingredient::text").extract()
+#             'title': content.css("h1.content__title::text").extract(),
+#             'ingredients': text.css("li.single-recipe-page__ingredient::text").extract()
 #             for element in content.css("li.single-recipe-page-step"):
 #                 'step[title]': content.css("div.single-recipe-page-step__title::text").extract()
 #                 'step[text]': content.css("div.single-recipe-page-step__text span::text").extract()
