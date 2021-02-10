@@ -16,8 +16,8 @@ class ToScrapeCSSSpider(scrapy.Spider):
         yield {
             'title': content.css("h1.content__title::text").extract(),
             'ingredients': text.css("li.single-recipe-page__ingredient::text").extract()
-            'complexity': content.css("div.single-recipe-page-info-item__text::text").extract()[2],
-            'cooking_time': content.css("div.single-recipe-page-info-item__text::text").extract()[1],
+            'complexity': content.css("div.single-recipe-page-info-item__text:nth-child(3)::text").extract(),
+#            'cooking_time': content.css("div.single-recipe-page-info-item__text::text").extract()[1],
 #             'prep_time': content.css("div.single-recipe-page-info-item__text::text").extract()[0],
 #             'serves': content.css("div.single-recipe-page-info-item__text::text").extract()[3],
 #             'description': content.css("div.description-container::text").extract(),
