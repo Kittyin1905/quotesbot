@@ -10,12 +10,13 @@ class ToScrapeCSSSpider(scrapy.Spider):
         'https://soyummy.com/recipe/glazed-lemon-poppy-seed-pastries/',
       #  'https://search.studyinaustralia.gov.au/course/search-results.html?qualificationid=11',
     ]
-
     def parse(self, response):
-    
         content= response.css("div.content-container")[0]
         text= response.css("ul.single-recipe-page-ingredients__list")[0]
         yield {
+            'title': content.css("h1.content__title::text").extract(),
+            'ingredients': text.css("li.single-recipe-page__ingredient::text").extract()
+         }
             
         
 #             'complexity': content.css("div.single-recipe-page-info-item__text::text").extract()[2],
@@ -31,7 +32,7 @@ class ToScrapeCSSSpider(scrapy.Spider):
 #                 'step[text]': content.css("div.single-recipe-page-step__text span::text").extract()
 #             'steps':"title:" + content.css("div.single-recipe-page-step__title::text").extract()+
 #             "text:" + content.css("div.single-recipe-page-step__text::text").extract()+
-        }
+        
         
 # class Step(scrapy.Item):
 #     name = scrapy.Field()
