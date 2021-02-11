@@ -53,6 +53,7 @@ class ToScrapeCSSSpider(scrapy.Spider):
     name = "toscrape-css"
     start_urls = [
         'https://soyummy.com/breakfast/',
+        'https://soyummy.com/dinner/',
     ]
   #      for item_url in response.css('a[href*=recipe]::attr(href)').getall():   
     def parse(self,response):
