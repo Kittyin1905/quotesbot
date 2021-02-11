@@ -54,9 +54,8 @@ class ToScrapeCSSSpider(scrapy.Spider):
     start_urls = [
         'https://soyummy.com/breakfast/',
     ]
-    
+  #      for item_url in response.css('a[href*=recipe]::attr(href)').getall():   
     def parse(self,response):
-  #      for item_url in response.css('a[href*=recipe]::attr(href)').getall():
         for item_url in response.css('a.post-preview-box__link::attr(href)').getall():
             yield scrapy.Request(response.urljoin(item_url), callback=self.parse_item)
             
