@@ -18,13 +18,13 @@ class ToScrapeCSSSpider(scrapy.Spider):
         
     def parse_item(self, response):
         tuition= response.css("div.tb_cl div.fl_w100")[3]
-        univ= response.css("h2.univ_tit").extract_first()
+        univ= response.css("h2.univ_tit::text").extract_first()
         temp= response.url
         
         for content in response.css("div.rs_cnt"):
             yield {
             'uni_title': univ,
-            'crs_title': content.css("h3.crs_tit ::text").extract_first(),
+            'crs_title': content.css("h3.crs_tit::text").extract_first(),
             'fee': tuition.css("span::text").extract_first(),
             'url':temp
             }
