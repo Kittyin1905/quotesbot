@@ -9,7 +9,7 @@ class ToScrapeCSSSpider(scrapy.Spider):
         'https://cricos.education.gov.au/Course/CourseDetails.aspx?CourseId=103601',
     ]
 
-    def parse(self, response)
+    def parse(self, response):
         content= response.css("div.container")[0]
       #  fee= response.xpath('//div[@id="ctl00_cphDefaultPage_courseDetail_trTuition"]')[0]
         yield {
