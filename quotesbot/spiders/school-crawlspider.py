@@ -1,43 +1,31 @@
 # -*- coding: utf-8 -*-
 import scrapy
 import logging
-from scrapy.spiders import CrawlSpider, Rule
-from scrapy.linkextractors import LinkExtractor
 
-class MySpider(CrawlSpider):
-    name = 'cricos_edu'
-    allowed_domains = ['cricos.education.gov.au']
-    start_urls = ['https://cricos.education.gov.au/Institution/InstitutionSearch.aspx?StateId=QLD/']
-
-    rules = (
-        # Extract links matching 'category.php' (but not matching 'subsection.php')
-        # and follow links from them (since no callback means follow=True by default).
-        Rule(LinkExtractor(allow=('cricos.education.gov.au/Institution/InstitutionDetails.aspx?ProviderID=', ), deny=('subsection\.php', ))),
-
-        # Extract links matching 'item.php' and parse them with the spider's method parse_item
-        Rule(LinkExtractor(allow=('cricos.education.gov.au/Course/CourseDetails.aspx?CourseId=', )), callback='parse_item'),
-    )
-
-    def parse_item(self, response):
-        self.logger.info('Hi, this is an item page! %s', response.url)
-        content= response.xpath('//div[@id="Content"]')[0]
-        fee= response.xpath('//div[@id="ctl00_cphDefaultPage_courseDetail_trTuition"]')[0]
-        temp= response.url
-
-        yield {            
-            'title': content.xpath('.//h1/text()').extract_first(),
-            'tuition_fee': content.xpath('.//span[@id="ctl00_cphDefaultPage_courseDetail_lblTuition"]/text()').extract_first(),
-            'source_url': temp
-        }
+class ToScrapeCSSSpider(scrapy.Spider):
+    name = "study_au"
+    start_urls = [
+        'https://search.studyinaustralia.gov.au/course/search-results.html?qualificationid=9&locationid=4/',
+    ]
+  #      for item_url in response.css('a[href*=recipe]::attr(href)').getall():   
+    def parse(self,response):
+        for item_url in response.css('a.al_crs::attr(href)').getall():
+            yield scrapy.Request(response.urljoin(item_url), callback=self.parse_item)
+     
+        next_page_url = response.css("li.nxt a::attr(href)").extract_first()
+        if next_page_url is not None:
+            yield scrapy.Request(response.urljoin(next_page_url))
         
-#         item = scrapy.Item()
-#         item['id'] = response.xpath('//td[@id="item_id"]/text()').re(r'ID: (\d+)')
-#         item['name'] = response.xpath('//td[@id="item_name"]/text()').get()
-#         item['description'] = response.xpath('//td[@id="item_description"]/text()').get()
-#         item['link_text'] = response.meta['link_text']
-#         url = response.xpath('//td[@id="additional_data"]/@href').get()
-#         return response.follow(url, self.parse_additional_page, cb_kwargs=dict(item=item))
-
-#     def parse_additional_page(self, response, item):
-#         item['additional_data'] = response.xpath('//p[@id="additional_data"]/text()').get()
-#         return item
+    def parse_item(self, response):
+        tuition= response.css("div.tb_cl div.fl_w100")[3]
+        univ= response.css("h2.univ_tit").extract_first()
+        temp= response.url
+        
+        for content in response.css("div.rs_cnt"):
+            yield {
+            'uni_title': univ,
+            'crs_title': content.css("h3.crs_tit ::text").extract_first(),
+            'fee': tuition.css("span::text").extract_first(),
+            'url':temp
+            }
+       
