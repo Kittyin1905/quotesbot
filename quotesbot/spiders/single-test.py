@@ -3,20 +3,21 @@ import scrapy
 
 
 class ToScrapeCSSSpider(scrapy.Spider):
-    name = "toscrape-css"
+    name = "item-test"
     start_urls = [
-        'http://quotes.toscrape.com/',
+        'https://cricos.education.gov.au/Course/CourseDetails.aspx?CourseId=97668/',
     ]
 
     def parse(self, response):
-        for quote in response.css("div.quote"):
-            yield {
-                'text': quote.css("span.text::text").extract_first(),
-                'author': quote.css("small.author::text").extract_first(),
-                'tags': quote.css("div.tags > a.tag::text").extract()
-            }
+        content= response.xpath('//div[@id="Content"]')[0]
+        fee= response.xpath('//div[@id="ctl00_cphDefaultPage_courseDetail_trTuition"]')[0]
+        yield {
+            'title': content.xpath('//h1/text()').extract_first(),
+            'tuition_fee': fee.xpath('//span[@id="ctl00_cphDefaultPage_courseDetail_lblTuition"]/text()').extract_first(),
+            
+        }
 
-        next_page_url = response.css("li.next > a::attr(href)").extract_first()
-        if next_page_url is not None:
-            yield scrapy.Request(response.urljoin(next_page_url))
+#         next_page_url = response.css("li.next > a::attr(href)").extract_first()
+#         if next_page_url is not None:
+#             yield scrapy.Request(response.urljoin(next_page_url))
 
