@@ -5,7 +5,7 @@ import logging
 class ToScrapeCSSSpider(scrapy.Spider):
     name = "study_au"
     start_urls = [
-        'https://search.studyinaustralia.gov.au/course/search-results.html?qualificationid=9&locationid=4/',
+        'https://search.studyinaustralia.gov.au/course/search-results.html?qualificationid=9&locationid=4',
     ]
   #      for item_url in response.css('a[href*=recipe]::attr(href)').getall():   
     def parse(self,response):
