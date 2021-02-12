@@ -9,10 +9,11 @@ class ToScrapeCSSSpider(scrapy.Spider):
     ]
 
     def parse(self, response):
-        content= response.xpath('//div[@class="brd_btm"]')[0]
+        content= response.css("div.brd_btm")[0]
       #  fee= response.xpath('//div[@id="ctl00_cphDefaultPage_courseDetail_trTuition"]')[0]
         yield {
-            'title': content.xpath('//h2[@class="univ_tit"]/text()').extract_first(),
+            'title': content.css("h2.univ_tit::text").extract_first()
+     #       'title': content.xpath('//h2[@class="univ_tit"]/text()').extract_first(),
      #       'tuition_fee': fee.xpath('//span[@id="ctl00_cphDefaultPage_courseDetail_lblTuition"]/text()').extract_first(),
             
         }
